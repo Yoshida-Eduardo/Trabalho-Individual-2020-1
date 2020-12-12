@@ -32,7 +32,7 @@ matrix:
           token:
             secure: $CLIENT_KEY
       env: 
-        - REGEX='^(client\/)'
+        - REGEX='^(client\/|.travis.yml)'
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
       install:
