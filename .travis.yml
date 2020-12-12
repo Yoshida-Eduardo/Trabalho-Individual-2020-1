@@ -1,0 +1,31 @@
+matrix:
+  include:
+    - name: Api Build
+      language: generic
+      services:
+        - postgresql
+      env: 
+        - REGEX='^(api\/)'
+        - DB_USER=postgres
+        - DB_URL=localhost:5432
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
+      before_script:
+        - psql -c 'create database api_test;' -U postgres
+      install:
+        - docker build -q -t api -f ./api/Dockerfile
+      script:
+        - docker run --env DATABASE_URL=DB_URL --env POSTGRES_USER=DB_USER --env POSTGRES_PASSWORD="" api RAILS_ENV=test bundle exec rails test
+
+    - name: Client Build
+      language: generic
+      services:
+        - docker
+      env: 
+        - REGEX='^(client\/)'
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
+      install:
+        - docker build -q -t client -f ./client/Dockerfile
+      script:
+        - docker run client yarn test
