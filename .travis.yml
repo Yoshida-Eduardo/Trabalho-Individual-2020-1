@@ -13,8 +13,8 @@ matrix:
           organization: "yoshida-eduardo_Trabalho-Individual-2020-Api"
           token:
             secure: $API_KEY
-      before_install:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
+      # before_install:
+      #   - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
       before_script:
         - psql -c 'create database api_test;' -U postgres
       install:
