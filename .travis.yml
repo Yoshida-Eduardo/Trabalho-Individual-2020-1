@@ -13,12 +13,12 @@ matrix:
           organization: "yoshida-eduardo_Trabalho-Individual-2020-Api"
           token:
             secure: $API_KEY
-      # before_install:
-      #   - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
       before_script:
         - psql -c 'create database api_test;' -U postgres
       install:
-        - docker build -q -t api -f ./api/Dockerfile
+        - docker build -q -t api -f ./api/Dockerfile ./api
       script:
         - docker run --env DATABASE_URL=$DB_URL --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api RAILS_ENV=test bundle exec rails test
 
@@ -28,7 +28,7 @@ matrix:
         - docker
       addons:
         sonarcloud:
-          organization: "sonarcloud_organization_key"
+          organization: "yoshida-eduardo_Trabalho-Individual-2020-Client"
           token:
             secure: $CLIENT_KEY
       env: 
@@ -36,6 +36,6 @@ matrix:
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
       install:
-        - docker build -q -t client -f ./client/Dockerfile
+        - docker build -q -t client -f ./client/Dockerfile ./client
       script:
         - docker run client yarn test
