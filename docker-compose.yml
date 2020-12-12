@@ -8,13 +8,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: api_development
+
   api:
     build:
-      context: ./api
+      context: ./api/
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - ./api:/app
     depends_on:
       - db
     environment:
@@ -22,3 +23,12 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       RAILS_ENV: development
+
+  web:
+    build:
+      context: ./client/
+    ports:
+      - 8080:8080
+    volumes:
+      - ./client:/app
+      - /app/node_modules
