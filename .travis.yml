@@ -13,20 +13,21 @@ matrix:
     - name: Api Build
       stage: Build
       language: generic
-      services:
-        - postgresql
       env: 
         - REGEX='^(api\/|.travis.yml)'
         - DB_USER=postgres
+        - DOCKER_COMPOSE_VERSION=3.2
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
-      before_script:
-        - psql -c 'create database api_test;' -U postgres
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - docker build -q -t api -f ./api/Dockerfile ./api
       script:
-        - docker run api rake db:setup RAILS_ENV=test
-        - docker run --env DB_HOST=localhost --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test
+        - docker-compose run api rake db:setup RAILS_ENV=test
+        - docker-compose run api bundle exec rails test
 
     - name: Client Build
       stage: Build
