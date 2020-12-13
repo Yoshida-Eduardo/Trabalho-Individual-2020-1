@@ -6,7 +6,7 @@ matrix:
         sonarcloud:
           organization: "yoshida-eduardo"
           token:
-            secure: $SONAR_KEY
+            secure: "QS2P0wYVLcbuMAbO4ng+Rz47RlE136ZWLvxNZvEd8GBGjAhX66gM+naOfK2RugshDc9eY+U7SMH3TWXZ7PX9v07UhNt9YkE18RNyjSPes2SJhmGmxZ/iDmFFeQ6x0aumKS7lTfNwVRm+f77e7IzRCfw73YW3+CmnBf+AHD23D1YDOf8Y3bx6SFJEiYQmkQLj1jXLXRxc1BWTqGpeY1b1xpxQXaLZBRPxoS56hA9j9/WUSneLHSRQ7lRhDOkP9QcFyadF+mdRoyY1mAcN+DoC/IOyiuWJp57RRbXlmlN4y7k/dWjFwcbm/L1h45lZFGSIfJ3WcC0eUUXUfAFwTpWZi+sdm7PUzroWZM7S5qQOdJhyDVSzqMSViTGCgVM3fDMlVY8Emoimw7jVYVKYuV90XOPPxp0iZ6pM11uq8yWwXXHEbACtaUCw9EC2KJZhySqTHmfeyYvkIL54yG+WEZmnfrwJbQAQtDOM/bPVPAk8QGWqF3FQqRI3qHoBhBSQ12zwMTgn9h5aQ94jVACUPv1ustwBiPZsu46Tzv+OsySWXyHghSmYoTgwHPVyFKDqqk7VmnWkckHNi/p8EvU3+dUYV8cY1rrhkW2FVvl0qJg7jfRs5AKMywzWgSc40A9N4jwvgqInkOktK1oxL5aEIx4l1V+jJuPezzUdRg/Amf8cnWk="
       script:
         - sonar-scanner
 
