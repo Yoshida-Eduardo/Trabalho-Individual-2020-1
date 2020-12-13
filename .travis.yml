@@ -20,7 +20,8 @@ matrix:
       install:
         - docker build -q -t api -f ./api/Dockerfile ./api
       script:
-        - docker run --env DATABASE_URL=$DB_URL --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test
+        - sonar-scanner
+        - docker run --env DATABASE_URL=$DB_URL --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
 
     - name: Client Build
       language: generic
@@ -38,4 +39,5 @@ matrix:
       install:
         - docker build -q -t client -f ./client/Dockerfile ./client
       script:
+        - sonar-scanner
         - docker run client yarn test:unit
