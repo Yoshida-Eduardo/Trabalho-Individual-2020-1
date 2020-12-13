@@ -17,9 +17,9 @@ matrix:
       before_script:
         - psql -c 'create database api_test;' -U postgres
       install:
-        - docker build -t api -f ./api/Dockerfile ./api
+        - docker build -q -t api -f ./api/Dockerfile ./api
       script:
-        - sonar-scanner
+        - sonar-scanner -Dproject.settings=./api/sonar-project.properties
         - docker run  --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
 
     - name: Client Build
@@ -38,5 +38,5 @@ matrix:
       install:
         - docker build -q -t client -f ./client/Dockerfile ./client
       script:
-        - sonar-scanner
+        - sonar-scanner -Dproject.settings=./client/sonar-project.properties
         - docker run client yarn test:unit
