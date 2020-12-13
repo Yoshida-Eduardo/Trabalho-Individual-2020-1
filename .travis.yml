@@ -7,7 +7,6 @@ matrix:
       env: 
         - REGEX='^(api\/|.travis.yml)'
         - DB_USER=postgres
-        - DB_URL=localhost:5432
       addons:
         sonarcloud:
           organization: "yoshida-eduardo"
@@ -18,10 +17,10 @@ matrix:
       before_script:
         - psql -c 'create database api_test;' -U postgres
       install:
-        - docker build -q -t api -f ./api/Dockerfile ./api
+        - docker build -t api -f ./api/Dockerfile ./api
       script:
         - sonar-scanner
-        - docker run --env DATABASE_URL=$DB_URL --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
+        - docker run  --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
 
     - name: Client Build
       language: generic
