@@ -10,7 +10,7 @@ matrix:
         - DB_URL=localhost:5432
       addons:
         sonarcloud:
-          organization: "yoshida-eduardo_Trabalho-Individual-2020-Api"
+          organization: "yoshida-eduardo"
           token:
             secure: $API_KEY
       before_install:
@@ -29,7 +29,7 @@ matrix:
         - docker
       addons:
         sonarcloud:
-          organization: "yoshida-eduardo_Trabalho-Individual-2020-Client"
+          organization: "yoshida-eduardo"
           token:
             secure: $CLIENT_KEY
       env: 
