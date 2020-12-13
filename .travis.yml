@@ -1,5 +1,15 @@
 matrix:
   include:
+    - name: Code Analysis
+      stage: Static Analysis
+      addons:
+        sonarcloud:
+          organization: "yoshida-eduardo"
+          token:
+            secure: $SONAR_KEY
+      script:
+        - sonar-scanner
+
     - name: Api Build
       stage: Build
       language: generic
@@ -15,8 +25,8 @@ matrix:
       install:
         - docker build -q -t api -f ./api/Dockerfile ./api
       script:
-        - docker run api 
-        - docker run  --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
+        - docker run api rake db:setup RAILS_ENV=test
+        - docker run --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
 
     - name: Client Build
       stage: Build
@@ -31,13 +41,3 @@ matrix:
         - docker build -q -t client -f ./client/Dockerfile ./client
       script:
         - docker run client yarn test:unit
-
-    - name: Code Analysis
-      stage: Static Analysis
-      addons:
-        sonarcloud:
-          organization: "yoshida-eduardo"
-          token:
-            secure: $SONAR_KEY
-      script:
-        - sonar-scanner
