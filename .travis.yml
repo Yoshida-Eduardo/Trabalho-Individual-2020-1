@@ -26,7 +26,7 @@ matrix:
         - docker build -q -t api -f ./api/Dockerfile ./api
       script:
         - docker run api rake db:setup RAILS_ENV=test
-        - docker run --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test RAILS_ENV=test
+        - docker run --ENV DB_HOST=localhost --env POSTGRES_USER=$DB_USER --env POSTGRES_PASSWORD="" api bundle exec rails test
 
     - name: Client Build
       stage: Build
