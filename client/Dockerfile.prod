@@ -3,7 +3,7 @@ FROM client as build-stage
 RUN yarn build
 
 FROM nginx:stable-alpine as production-stage
-
+# Os artefatos estáticos gerados são copiados para serem servidos pelo nginx
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 EXPOSE 80
