@@ -35,3 +35,6 @@ matrix:
         - docker build -q -t client -f ./client/Dockerfile ./client
       script:
         - docker run client yarn test:unit
+      after_script:
+       - docker build -q -t client-prod -f ./client/Dockerfile.prod ./client
+       # TODO deploy
