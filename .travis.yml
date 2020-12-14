@@ -18,8 +18,6 @@ matrix:
       env: 
         - REGEX='^(api\/|.travis.yml)'
         - DB_USER=postgres
-      install:
-        - docker build -q -t api -f ./api/Dockerfile ./api
       script:
         - docker-compose run api rake db:setup RAILS_ENV=test
         - docker-compose run api bundle exec rails test
