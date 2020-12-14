@@ -87,6 +87,11 @@ git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE $REGEX || exit 0
 
 Com o objetivo de verificar os arquivos modificados no range de commits analisados pela build, caso nenhum arquivo referente ao respectivo serviço seja alterado, o job deste serviço será abortado, evitando deploys desnecessários.
 
+Para evidenciar o bloqueio de merge de pull requests com código quebrado, criei um PR quebrando propositalmente o client
+
+https://github.com/Yoshida-Eduardo/Trabalho-Individual-2020-1/pull/1
+
+
 ### 3. Deploy
 
 Não foi realizado o deploy da aplicação.
